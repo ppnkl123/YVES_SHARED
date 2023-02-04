@@ -1,0 +1,59 @@
+{% extends "questionnaire.html" %}
+
+{% block row1 %}
+<div id="cta" class="column d-flex justify-content-center">
+    <form action="{{ url_for('questionnaire1') }}" method="post">
+        <p>
+            <input type="hidden" name="answer" value="5-A">
+        </p>
+        <p>
+            <button id="b1" type="submit" class="nextButton btn btn-light">
+                <img src="../static/datasetgood.png" alt="">
+            </button>
+        </p>
+    </form>
+    <div style="width: 32px;"></div>
+    <form action="{{ url_for('questionnaire1') }}" method="post">
+        <p>
+            <input type="hidden" name="answer" value="5-B">
+        </p>
+        <p>
+            <button id="b2" type="submit" class="nextButton btn btn-light" src="../static/datasetbad.png">
+                <img src="../static/datasetbad.png" alt="">
+            </button>
+        </p>
+    </form>
+</div>
+{% endblock %}
+
+
+{% block script %}
+
+<script>
+
+    let language = '{{ language }}';
+
+    console.log("LANGUAGE" + language);
+
+    var question = document.getElementById("heading");
+    var questionString = "";
+  
+    switch (language){
+        case "en":
+        console.log("LANGUAGE IS ENGLISH HIHI");
+        questionString = "Which of these sets of images would teach me better?";
+
+        break; 
+        case "pol":
+        console.log("LANGUAGE IS POLISH");
+        questionString = "Który z tych zbiorów obrazów nauczyłby<br>mnie lepiej rozpoznawać obiekt?";
+   
+        break;
+    }
+
+    question.innerHTML = questionString;
+
+
+</script>
+
+{% endblock %}

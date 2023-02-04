@@ -1,0 +1,38 @@
+{% extends "questionnaire.html" %}
+{% block page_name %}16{% endblock %}
+
+
+{% block row1 %}
+<div class="row card-deck" id="languages" style="margin-top: 96px; margin-left: 280px;  color: black; filter: drop-shadow(2px 2px 4px #1f1f1f)">           
+    <div style="margin-left: 24px;">
+        <form action="{{ url_for('questionnaire1') }}" method="post">
+            <p>
+                <input type="hidden" name="answer" value="3-A">
+            </p>
+            <p>
+                <button type="submit" class="btn btn-light buttonStyle">
+                    <img src="../static/datasetgood.png" style="height: 230px; width: 400px">
+                    {% block A %}
+                    1-A
+                    {% endblock %}
+                </button>
+            </p>
+        </form>
+    </div>
+    <div style="margin-left: 24px;">
+        <form action="{{ url_for('questionnaire1') }}" method="post">
+            <p>
+                <input type="hidden" name="answer" value="3-B">
+            </p>
+            <p>
+                <button type="submit" class="btn btn-light buttonStyle">
+                    <img src="../static/datasetbad.png" style="height: 230px; width: 400px">
+                    {% block B %}
+                    1-B
+                    {% endblock %}
+                </button>
+            </p>
+        </form>
+    </div>
+ </div>
+{% endblock %}

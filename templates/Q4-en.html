@@ -1,0 +1,87 @@
+{% extends "questionnaire.html" %}
+
+{% block row1 %}
+    <form action="{{ url_for('questionnaire1') }}" method="post">
+        <p>
+            <input type="hidden" name="answer" value="4-A">
+        </p>
+        <p>
+            <button id="b1" type="submit" class="nextButton btn btn-light ">
+            </button>
+        </p>
+    </form>
+{% endblock %}
+
+{% block row2 %}
+    <form action="{{ url_for('questionnaire1') }}" method="post">
+        <p>
+            <input type="hidden" name="answer" value="4-B">
+        </p>
+        <p>
+            <button id="b2" type="submit" class="nextButton btn btn-light ">
+            </button>
+        </p>
+    </form>
+
+{% endblock %}
+
+{% block row3 %} 
+     <form action="{{ url_for('questionnaire1') }}" method="post">
+        <p>
+            <input type="hidden" name="answer" value="4-C">
+        </p>
+        <p>
+            <button id="b3" type="submit" class="nextButton btn btn-light ">
+            </button>
+        </p>
+    </form>
+{% endblock %}
+
+
+{% block script %}
+
+<script>
+
+    let language = '{{ language }}';
+
+    console.log("LANGUAGE" + language);
+
+    var question = document.getElementById("heading");
+
+    var b1 = document.getElementById("b1");
+    var b2 = document.getElementById("b2");
+    var b3 = document.getElementById("b3");
+
+    var questionString = "";
+    var answer_one_String = "";
+    var answer_two_String = "";
+    var answer_three_String = "";
+
+    switch (language){
+        case "en":
+        console.log("LANGUAGE IS ENGLISH HIHI");
+        questionString = "We improved the accuracy of recognizing the<br>toy through Data Augmentation.<br>Right now, which of the following could I struggle with?";
+        answer_one_String = "Toy upside down "
+        answer_two_String = "Toy in the corner of the camera frame"
+        answer_three_String = "Rotated toy";
+    
+        break; 
+        case "pol":
+        console.log("LANGUAGE IS POLISH");
+        questionString = "Zwiększyliśmy dokładność rozpoznawania zabawki dzięki augmentacji danych. Z którą z poniższych rzeczy mogę mieć teraz problemy podczas rozpoznawania?";
+        answer_one_String = "Zabawka do góry nogami"
+        answer_two_String = "Zabawka w rogu kadru kamery"
+        answer_three_String = "Obrócona zabawka";
+
+        break;
+    }
+
+    question.innerHTML = questionString;
+    b1.innerHTML = answer_one_String;
+    b2.innerHTML = answer_two_String;
+    b3.innerHTML = answer_three_String;
+
+
+</script>
+
+{% endblock %}

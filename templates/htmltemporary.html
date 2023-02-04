@@ -1,0 +1,73 @@
+<div class="bodyText">
+    <h1 id="heading" class="heading" style="height: 80px;">
+        {% block page_heading %}
+        {% endblock %}
+    </h1>
+
+    <div id="pageContent" class="pageContent">
+        <div style="margin-bottom: 16px">
+        {% block row1col1 %}
+        {% endblock %}
+        </div>
+        <div id="row1">
+
+            <div id="page-content-container" class="column d-flex justify-content-center">
+               <!-- camera container mit video -->
+                <div style="width: 40px"></div>
+                <div  id="pageContent" class="pageContent">
+                    <h2 id="text" class="subheading" id="page_text">
+                        {% block page_text %}
+                        {% endblock %}
+                    </h2>
+
+                    <div style="height: 24px;"></div>
+
+                    <div class="column d-flex justify-content-center">
+                        {% block position_button %}
+                        {% endblock %}
+                    </div>
+        
+                    <div id="cta" class="column d-flex justify-content-center">
+                            <form action="{{ url_for('handle_forms') }}" method="post">
+                                <p>
+                                    {% block form_input %}
+                                    {% endblock %}
+                                </p>
+                                <p>
+                                    {% block form_button %}
+                                    {% endblock %}
+                                </p>
+                            </form>
+                            <div>
+                                {% block regular_button %}
+                                {% endblock %}
+                            </div>
+                            
+                    </div>
+                    <div class="column d-flex justify-content-center">
+                        {% block rotation_button %}
+                        {% endblock %}
+                    </div>
+
+                    <div class="column d-flex justify-content-center">
+                        {% block perspective_button %}
+                        {% endblock %}
+                    </div>
+
+                    <div class="column d-flex justify-content-center">
+                        {% block last_button %}
+                        {% endblock %}
+                    </div>
+                </div>
+           
+    
+            </div>
+
+        
+            <div id="row3">
+                    {% block row3 %}
+                    {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+{% extends "questionnaire.html" %}
+{% block page_name %}14{% endblock %}
+
+{% block row1 %}
+<div class="row card-deck" id="languages" style="margin-top: 96px; margin-left: 280px;  color: black; filter: drop-shadow(2px 2px 4px #1f1f1f)">           
+    <div style="margin-left: 24px;">
+        <form action="{{ url_for('questionnaire1') }}" method="post">
+            <p>
+                <input type="hidden" name="answer" value="1-A">
+            </p>
+            <img src="../static/child.png" style="height: 120px; width: 120px">
+            <p>
+                <button type="submit" class="btn btn-light buttonStyle">
+                    {% block A %}
+                    1-A
+                    {% endblock %}
+                </button>
+            </p>
+        </form>
+    </div>
+    <div style="margin-left: 24px;">
+        <form action="{{ url_for('questionnaire1') }}" method="post">
+            <p>
+                <input type="hidden" name="answer" value="1-B">
+            </p>
+            <img src="../static/youngadult.png" style="height: 120px; width: 120px">
+            <p>
+                <button type="submit" class="btn btn-light buttonStyle">
+                    {% block B %}
+                    1-B
+                    {% endblock %}
+                </button>
+            </p>
+        </form>
+    </div>
+    <div style="margin-left: 24px;">
+        <form action="{{ url_for('questionnaire1') }}" method="post">
+            <p>
+                <input type="hidden" name="answer" value="1-C">
+            </p>
+            <img src="../static/olderadult.png" style="height: 120px; width: 120px">
+            <p>
+                <button type="submit" class="btn btn-light buttonStyle">
+                    {% block C %}
+                    1-C
+                    {% endblock %}
+                </button>
+            </p>
+        </form>
+    </div>
+</div>  
+{% endblock %}

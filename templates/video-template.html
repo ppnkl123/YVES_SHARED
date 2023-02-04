@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;1,900&display=swap" rel="stylesheet">
+        <link rel="shortcut icon" href="#">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+        crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous" />
+
+        <title>{% block page_name %}{% endblock %}</title>
+        <style>
+
+            .loader {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #F8D154; /* Blue */
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            animation: spin 2s linear infinite;
+            }
+
+            @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+            }
+            
+            .buttonStyle:hover {
+                transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+            }
+            
+            .grid-container {
+                display: grid;
+                justify-content: center;
+                grid-template-columns: auto auto;
+            }
+            .grid-container > div {
+                text-align: center;
+                font-size: 30px;
+            }
+
+            .svgButton {
+                height: 56px;
+                width: 72px;
+            }
+
+
+            .buttonStyle{
+                padding: 16px 24px;
+                font-size: 24px;
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 500;
+                filter: drop-shadow(2px 2px 4px #1f1f1f);
+                transition: transform .2s; /* Animation */
+            }
+
+            .nextButton {
+                padding: 16px 24px;
+                font-size: 24px;
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 500;
+                color: #3F3F3F;
+                background-color: #F8D154;
+                border-color: #F8D154;
+                box-shadow: 0px 4px 4px rgb(0 0 0 / 95%);
+            }
+
+            .secondaryButton {
+                padding: 16px 24px;
+                font-size: 24px;
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 500;
+                color: #F8D154;
+                background-color: #3F3F3F;
+                border-color: #F8D154;
+                box-shadow: 0px 4px 4px rgb(0 0 0 / 95%);
+            }
+
+            .buttonStyleNoHover{
+                padding: 16px 24px;
+                font-size: 24px;
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 500;
+                filter: drop-shadow(2px 2px 4px #1f1f1f);
+            }
+
+            .bodyDarkmode{
+                background-color: rgb(51, 51, 56);
+                color: white;
+                background-repeat: no-repeat;
+                background-size: 100%;
+            }
+
+            .bodyText {
+                text-align: center;
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 600;
+            }
+
+            .subheading {
+                text-align: left;
+                width: 500px;
+   
+            }
+        
+            .video {
+                width: 500px;
+                height: 500px;
+                position: absolute;
+                top: 56;
+                left: 0;
+                border-radius: 16px;
+            }
+        
+            .canvas {
+                width: 500px;
+                height: 500px;
+                position: absolute;
+                background-color:rgba(81, 255, 0, 0);
+                top: 56;
+                z-index: 10;
+                left: 0;
+                border-radius: 16px;
+            }
+
+            .notDetectedObject {
+                width: 500px;
+                height: 500px;
+                position: absolute;
+                background-color:rgba(81, 255, 0, 0);
+                top: 56;
+                z-index: 10;
+                left: 0;
+                border-radius: 16px;
+                border-style: solid;
+                border-color: #ff0c0c;
+                border-width: 10px;
+            }
+
+            .detectedObject {
+                width: 500px;
+                height: 500px;
+                position: absolute;
+                background-color:rgba(81, 255, 0, 0);
+                top: 56;
+                z-index: 10;
+                left: 0;
+                border-radius: 16px;
+                border-style: solid;
+                border-color: #0cff0c;
+                border-width: 10px;
+            }
+
+            .detectedLabelCanvas{
+                color: #12c612;
+                font-size: 24px;
+                padding: 5px;
+                background-color: white;
+                border-radius: 16px;
+                border-style: solid;
+                border-color: #0cff0c;
+                border-width: 8px;
+                margin-bottom: 16px;
+            }
+
+            .notDetectedLabelCanvas{
+                color: #cf0808;
+                font-size: 24px;
+                padding: 5px;
+                background-color: white;
+                border-radius: 16px;
+                border-style: solid;
+                border-color: #ff0c0c;
+                border-width: 8px;
+                margin-bottom: 16px;
+            }
+  
+            #streamElement {
+                position: absolute;
+            
+            }
+              
+            .languageButtonRow{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            margin-right: 40px;
+            }
+
+            .languageButton{
+                background: none;
+                border: none;
+            }
+
+            .languageImg{
+                height: 48px;
+            }
+
+            .positionsImgCrop{
+                border-radius: 8px;
+                border-style: solid;
+                border-color: #e7e7e7;
+                border-width: 2px;;
+            }
+
+        </style>
+
+    </head>
+    <body class="bodyDarkmode">
+        <div style="height:80px"></div>
+
+        <div class="bodyText">
+            <div id="pageContent" class="pageContent">
+                <h1 id="heading" class="heading" style="height: 80px;">
+                    {% block page_heading %}
+                    {% endblock %}
+                </h1>
+
+                <div style="margin-bottom: 16px" class="justify-content-center">
+                {% block row1col1 %}
+                {% endblock %}
+                </div>
+                <div id="row1">
+
+                    <div id="page-content-container" class="column d-flex justify-content-center">
+                        <div style="width: 500px;" id="camera">
+                            <div>
+                                <canvas hidden id="hiddenCanvas" width="450px" height="450px"></canvas>
+                                <canvas class="canvas" id="hiddenCanvasToShow" width="450px" height="450px" style="display: none; position: relative;"></canvas>
+                            
+                            </div>
+        
+                            <div class="container" id="videoStreamDiv" style="position: relative; border-radius: 8px;">
+                                    <div id="detectionLabelCanvas"></div>
+                                    <video class="video" id="videoStreamElement" autoplay="true" ></video>
+                                    <canvas class="canvas" id="videoStreamCanvas"></canvas>
+                                    <canvas id="detectionCanvas"></canvas>
+                                    <svg class="canvas" id="videoStreamSVG"></svg>
+                            </div>
+                        </div>
+                        <div  id="pageContent" class="pageContent">
+                            <h2 id="text" class="subheading" id="page_text">
+                                {% block page_text %}
+                                {% endblock %}
+                            </h2>
+
+                            <div class="column d-flex justify-content-center">
+                                {% block position_button %}
+                                {% endblock %}
+                            </div>
+                
+                            <div id="cta" class="column d-flex" style="justify-content: center;">
+                                    <form action="{{ url_for('handle_forms') }}" method="post">
+                                        <p>
+                                            {% block form_input %}
+                                            {% endblock %}
+                                        </p>
+                                        <p>
+                                            {% block form_button %}
+                                            {% endblock %}
+                                        </p>
+                                    </form>
+                                    <div>
+                                        {% block regular_button %}
+                                        {% endblock %}
+                                    </div>
+                                    {% block normal_button %}
+                                    {% endblock %}
+                                    
+                                
+                            </div>
+                            <div class="column d-flex justify-content-center">
+                                {% block rotation_button %}
+                                {% endblock %}
+                            </div>
+
+                            <div class="column d-flex justify-content-center">
+                                {% block perspective_button %}
+                                {% endblock %}
+                            </div>
+
+                            <div class="column d-flex justify-content-center">
+                                {% block last_button %}
+                                {% endblock %}
+                            </div>
+                        </div>
+                   
+            
+                    </div>
+
+                
+                    <div id="row3">
+                            {% block row3 %}
+                            {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="languageButtonRow">
+            <div class="row card-deck">
+                <form action="{{ url_for('handle_forms') }}" method="post">
+                    <p>
+                        <input type="hidden" name="answer" value="restart">
+                    </p>
+                    <p>
+                        <button id="restart" type="submit" class="languageButton">
+                            <div>
+                                <img src="../static/polflag.png" class="languageImg">
+                            </div>
+                        </button>
+                    </p>
+                </form>
+                <form action="{{ url_for('handle_forms') }}" method="post">
+                    <p>
+                        <input type="hidden" name="answer" value="restart" >
+                    </p>
+                    <p>
+                        <button id="restart" type="submit" class="languageButton">
+                            <div>
+                                <img src="../static/ukflag.png" class="languageImg">
+                            </div>
+                        </button>
+                    </p>
+                </form>
+                <form action="{{ url_for('handle_forms') }}" method="post">
+                    <p>
+                        <input type="hidden" name="answer" value="restart">
+                    </p>
+                    <p>
+                        <button id="restart" type="submit" class="languageButton">
+                            <div>
+                                <img src="../static/russflag.png" class="languageImg">
+                            </div>
+                        </button>
+                    </p>
+                </form>
+                <form action="{{ url_for('handle_forms') }}" method="post">
+                    <p>
+                        <input type="hidden" name="answer" value="restart">
+                    </p>
+                    <p>
+                        <button id="restart" type="submit" class="languageButton">
+                            <div>
+                                <img src="../static/gerflag.png" class="languageImg">
+                            </div>
+                        </button>
+                    </p>
+                </form>
+                <form action="{{ url_for('handle_forms') }}" method="post">
+                    <p>
+                        <input type="hidden" name="answer" value="restart">
+                    </p>
+                    <p>
+                        <button id="restart" type="submit" class="languageButton">
+                            <div>
+                                <img src="../static/restart.png" class="languageImg">
+                            </div>
+                        </button>
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        {% block script %}
+        {% endblock %}
+
+        <script>
+                // STREAMING
+            var video = document.getElementById("videoStreamElement")
+            
+            if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({
+                audio: false,
+                video: {
+                    width: {max: 1024},
+                    height: {max: 1024},
+                    aspectRatio: {ideal: 1}
+                }} )
+                    .then(function (stream) {
+                    video.srcObject = stream;
+
+                    })
+
+                    .catch(function (error) {
+
+                    console.log("Something went wrong!");
+
+                    });
+            }
+            
+        var hiddenCanvas = document.getElementById("hiddenCanvas");
+
+        var videoStreamCanvas = document.getElementById("videoStreamCanvas");
+        var videoStreamCanvas_CTX = videoStreamCanvas.getContext("2d");
+
+        function logging(str, response){
+            console.log(str, response)
+        }
+
+        </script>
+
+
+        <script
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"
+        ></script>
+
+        <!--
+        <script
+            type="text/javascript"
+            src="{{ url_for('static', filename='index.js') }}"
+        ></script>
+        -->
+
+
+    </body>
+</html>
