@@ -6,6 +6,7 @@ session_values.txt
 *.pb
 *.spec
 Tensorflow/
-questionnaire/
 build/
 dist/
+*.tflite
+sven.py
