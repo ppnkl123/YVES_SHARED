@@ -284,7 +284,6 @@
 
 
 
-
         <div class="languageButtonRow">
             <div class="row card-deck">
                 <form action="{{ url_for('handle_forms') }}" method="post">
@@ -318,7 +317,7 @@
                     <p>
                         <button id="restart" type="submit" class="languageButton">
                             <div>
-                                <img src="../static/russflag.png" class="languageImg">
+                                <img src="../static/russflag.png" class="languageImg" style="display: none;">
                             </div>
                         </button>
                     </p>
@@ -328,7 +327,7 @@
                         <input type="hidden" name="answer" value="restart">
                     </p>
                     <p>
-                        <button id="restart" type="submit" class="languageButton">
+                        <button id="restart" type="submit" class="languageButton" style="display: none;">
                             <div>
                                 <img src="../static/gerflag.png" class="languageImg">
                             </div>

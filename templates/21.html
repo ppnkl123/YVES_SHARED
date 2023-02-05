@@ -6,7 +6,7 @@
 <input type="hidden" name="answer" value="22">
 {% endblock %}
 {% block form_button %}
-<button id="button" type="submit" class="nextButton" style="float: left;">
+<button id="button" type="submit" class="nextButton" style="float: left; position: absolute;">
     Next
 </button>
 {% endblock %}
@@ -31,12 +31,16 @@ var subheadingR = document.getElementsByClassName("subheading")[0];
     switch (language){
         case "en":
         console.log("LANGUAGE IS ENGLISH HIHI");
-        subcontentString = "Move your object away from its position and test what happens."
+        subcontentString = "Move the toy away from its position and test what happens."
         nextButtonString = "Next";
+        detection_str_a = "No ";
+        detection_str_b = " detected";
+        detection_str_c = "";
+        detection_str_d = " detected";
         break; 
         case "de":
         console.log("LANGUAGE IS GERMAN HIHI");
-        subcontentString = "Bewege dein Pbkejt jaehkwfu"
+        subcontentString = "Bewege dein Obkejt"
         nextButtonString = "Weiter"
         break;
         case "rus":
@@ -46,8 +50,12 @@ var subheadingR = document.getElementsByClassName("subheading")[0];
         break;
         case "pol":
         console.log("LANGUAGE IS POLISH HIHI");
-        subcontentString = "polish"
-        nextButtonString = "pol"
+        subcontentString = "Przesuń zabawkę w inne miejsce i zobacz co się stanie."
+        nextButtonString = "Następny";
+        detection_str_a = "Nie wykryto ";
+        detection_str_b = "";
+        detection_str_c = "Wykryto ";
+        detection_str_d = "";
         break;
     }
     
@@ -120,7 +128,7 @@ async function fetchText(type, msg){
             videoCanvas.classList.remove('detectedObject');
             videoLabelCanvas.classList.add('notDetectedLabelCanvas');
             videoLabelCanvas.classList.remove('detectedLabelCanvas'); 
-            videoLabelCanvas.innerHTML = "No " + label + " detected";
+            videoLabelCanvas.innerHTML = detection_str_a + label + detection_str_b;
 
             console.log("OBJECT MOVED") //TODO: LOG THE MOVEMENT?
             
@@ -132,7 +140,7 @@ async function fetchText(type, msg){
                     videoCanvas.classList.remove('notDetectedObject'); 
                     videoLabelCanvas.classList.add('detectedLabelCanvas');
                     videoLabelCanvas.classList.remove('notDetectedLabelCanvas');  
-                    videoLabelCanvas.innerHTML = label + " detected";
+                    videoLabelCanvas.innerHTML = detection_str_c + label + detection_str_d;
                 }
             }
             else  if (customDet != firstDet) {
@@ -140,7 +148,7 @@ async function fetchText(type, msg){
                 videoCanvas.classList.remove('detectedObject');  
                 videoLabelCanvas.classList.add('notDetectedLabelCanvas');
                 videoLabelCanvas.classList.remove('detectedLabelCanvas'); 
-                videoLabelCanvas.innerHTML = "No " + label + " detected";
+                videoLabelCanvas.innerHTML = detection_str_a + label + detection_str_b;
                 removeFromCanvas(); 
             }
 

@@ -3,7 +3,7 @@
 {% endblock %}
 
 {% block page_block1 %}
-<img class="explanationImage" src="../static/sharkPosition.png"/>
+<img class="explanationImage" src="../static/explanation_sharkPositionFAIL.png"/>
 {% endblock %}
 
 {% block page_block2 %}
@@ -36,7 +36,7 @@ let language = '{{ language }}';
     switch (language){
         case "en":
             console.log("LANGUAGE IS ENGLISH HIHI");
-            subcontent = "As you saw, I couldn’t recognise the object when you moved it to a different position.<br><br>To be really good at recognising an object at different <span style='color:#FFD951'>positions</span>, I need to have more images of it.<br><br>When I say more, I mean thousands of images. Imagine you would have to do this for me. It would take really long!"
+            subcontent = "As you saw, I couldn’t recognise the toy when you moved it to a different <span style='color:#FFD951'>positions</span>.<br><br>To be really good at recognising an object at different position, I need to have more images of it.<br><br>When I say more, I mean thousands of images. Imagine you would have to do this for me. It would take really long!"
             buttonText = "Next";
             break; 
         case "de":
@@ -54,8 +54,8 @@ let language = '{{ language }}';
         case "pol":
             console.log("LANGUAGE IS POLISH HIHI");
             headcontent = "polish"
-            subcontent = "polish"
-            buttonText = "polish";
+            subcontent = "Jak widzisz nie rozpoznaję zabawki, jeśli jest w <span style='color:#FFD951'>innym miejscu</span>.<br><br>Aby być naprawdę dobrym w rozpoznawaniu obiektu w różnych pozycjach, muszę mieć więcej jego obrazów.<br><br>Przy czym 'więcej' oznacza tysiące obrazów. Wyobraź sobie, że musiałbyś to zrobić za mnie. Zajęłoby to naprawdę dużo czasu!"
+            buttonText = "Następny";
             break;
     }
 

@@ -1,0 +1,120 @@
+{% extends "questionnaire.html" %}
+
+{% block row1 %}
+<div id="cta" class="column d-flex justify-content-center">
+    <form action="{{ url_for('questionnaire1') }}" method="post">
+        <p>
+            <input type="hidden" name="answer" value="6-A">
+        </p>
+        <p>
+            <button id="b1" type="submit" class="nextButton btn btn-light ">
+            </button>
+        </p>
+    </form>
+    <div style="width: 24px;"></div>
+    <form action="{{ url_for('questionnaire1') }}" method="post">
+        <p>
+            <input type="hidden" name="answer" value="6-B">
+        </p>
+        <p>
+            <button id="b2" type="submit" class="nextButton btn btn-light ">
+            </button>
+        </p>
+    </form>
+    <div style="width: 24px;"></div>
+    <form action="{{ url_for('questionnaire1') }}" method="post">
+        <p>
+            <input type="hidden" name="answer" value="6-C">
+        </p>
+        <p>
+            <button id="b3" type="submit" class="nextButton btn btn-light ">
+            </button>
+        </p>
+    </form>
+    <div style="width: 24px;"></div>
+    <form action="{{ url_for('questionnaire1') }}" method="post">
+        <p>
+            <input type="hidden" name="answer" value="6-D">
+        </p>
+        <p>
+            <button id="b4" type="submit" class="nextButton btn btn-light ">
+            </button>
+        </p>
+    </form>
+    <div style="width: 24px;"></div>
+    <form action="{{ url_for('questionnaire1') }}" method="post">
+        <p>
+            <input type="hidden" name="answer" value="6-E">
+        </p>
+        <p>
+            <button id="b5" type="submit" class="nextButton btn btn-light ">
+            </button>
+        </p>
+    </form>
+    <div style="width: 32px; font-size: 24px;"></div>
+</div>
+{% endblock %}
+
+
+
+{% block script %}
+
+<script>
+
+    let language = '{{ language }}';
+
+    console.log("LANGUAGE" + language);
+
+    var question = document.getElementById("heading");
+
+    var b1 = document.getElementById("b1");
+    var b2 = document.getElementById("b2");
+    var b3 = document.getElementById("b3");
+    var b4 = document.getElementById("b4");
+    var b5 = document.getElementById("b5");
+
+    var left_text = document.getElementById("left_text");
+    var right_text = document.getElementById("right_text");
+
+    left_text_string = "";
+    right_text_string = "";
+
+    answer_one_String = "";
+    answer_two_String = "";
+    answer_three_String = "";
+    answer_four_String = "";
+    answer_five_String = "";
+
+    switch (language){
+        case "en":
+        console.log("LANGUAGE IS ENGLISH HIHI");
+        questionString = "I feel like I learned a lot from YVES.";
+        answer_one_String = "Strongly disagree";
+        answer_two_String = "Disagree";
+        answer_three_String = "Neither agree nor disagree";
+        answer_four_String = "Agree";
+        answer_five_String = "Strongly agree";
+        break; 
+        case "pol":
+        console.log("LANGUAGE IS POLISH");
+        questionString = "Wiele się dowiedziałe_am dzięki YVES.";
+        answer_one_String = "Zdecydowanie się<br>nie zgadzam";
+        answer_two_String = "Nie zgadzam się";
+        answer_three_String = "Ani się zgadzam,<br>ani się nie zgadzam";
+        answer_four_String = "Zgadzam się";
+        answer_five_String = "Zdecydowanie zgadzam się";
+        break;
+    }
+
+    question.innerHTML = questionString;
+    b1.innerHTML = answer_one_String;
+    b2.innerHTML = answer_two_String;
+    b3.innerHTML = answer_three_String;
+    b4.innerHTML = answer_four_String;
+    b5.innerHTML = answer_five_String;
+    left_text.innerHTML = left_text_string;
+    right_text.innerHTML = right_text_string;
+
+</script>
+
+{% endblock %}

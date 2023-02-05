@@ -245,7 +245,7 @@
                             </div>
                         </div>
                         <div  id="pageContent" class="pageContent">
-                            <h2 id="text" class="subheading" id="page_text">
+                            <h2 id="text" class="subheading" id="page_text" style="margin-left:40px">
                                 {% block page_text %}
                                 {% endblock %}
                             </h2>
@@ -255,7 +255,7 @@
                                 {% endblock %}
                             </div>
                 
-                            <div id="cta" class="column d-flex" style="justify-content: center;">
+                            <div id="cta" class="column d-flex" style="margin-left: 40px;">
                                     <form action="{{ url_for('handle_forms') }}" method="post">
                                         <p>
                                             {% block form_input %}
@@ -334,19 +334,19 @@
                         <input type="hidden" name="answer" value="restart">
                     </p>
                     <p>
-                        <button id="restart" type="submit" class="languageButton">
+                        <button id="restart" type="submit" class="languageButton" style="display: none;">
                             <div>
                                 <img src="../static/russflag.png" class="languageImg">
                             </div>
                         </button>
                     </p>
                 </form>
-                <form action="{{ url_for('handle_forms') }}" method="post">
+                                <form action="{{ url_for('handle_forms') }}" method="post">
                     <p>
                         <input type="hidden" name="answer" value="restart">
                     </p>
                     <p>
-                        <button id="restart" type="submit" class="languageButton">
+                        <button id="restart" type="submit" class="languageButton" style="display: none;">
                             <div>
                                 <img src="../static/gerflag.png" class="languageImg">
                             </div>

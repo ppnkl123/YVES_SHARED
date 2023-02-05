@@ -469,13 +469,13 @@ def reroute(id):
     else:
         language = session.get('language', None)
         print("page ID:" + id)
-        page = id + "-" + "en" + ".html"
+        page = id + ".html"
         print("PAGE redirect:" + page)
         print("PAGE language:" + language)
 
         return render_template(page, language=language)
 
-@app.route('/')
+@app.route('/home')
 def restart():
     number = generate_interaction()
     session['interaction_type'] = number
@@ -497,7 +497,7 @@ csvFile = os.path.join(path, "questionnaire" + str(nr) + ".csv")
 #_______________________________________________________________
 # HOME PAGE - CHOSE A LANGUAGE
 #
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/home', methods=['POST', 'GET'])
 def home():
 
     session['user_label'] = "?"
@@ -532,6 +532,9 @@ def home():
     else:
         return render_template('home.html')
 
+@app.route('/launch', methods=['POST', 'GET'])
+def launch():
+    return render_template('launch.html')
 
 #_______________________________________________________________
 # 01 - 01 - CAN YOU TEACH ME SOMETHING?        -> put into body and take a picture
@@ -556,10 +559,10 @@ def handle_form():
     print("INTERACTION TYPE:" + str(interaction))
     
     if interaction == 0:
-        print("GOING TO PAGE 12")
-        page_id = "12"
+        print("interaction 0 - one step interaction")
+        page_id = "21_00"
     else:
-        print("GOING TO PAGE 21")
+        print("Interaction 1 - two step interaction")
         page_id = "21"
 
     return redirect(url_for('reroute', id=page_id))
@@ -641,30 +644,37 @@ def diversify_images_position(imagePath):
     images_dict.insert(0, original_image(src, path))
 
     print(len(images_dict))
-
-    # #____________________________________________________________________
-    # # IMAGE 1 -  mirror at y
-    # images_dict.append(insert_crop(cropped_im, path, 30, 50))
-
-    
-    # # IMAGE 2 - mirror at x
-    # images_dict.append(insert_crop(cropped_im, path, 100, 50))
-
-
-    # # IMAGE 3 - rotate 90°
-    # images_dict.append(insert_crop(cropped_im, path, 120, 120))
-
-
-    # # IMAGE 4 - rotate 180°
-    # images_dict.append(insert_crop(cropped_im, path, 30, 200))
-
-    # # IMAGE 5 - zoom in by 2.0
-    # images_dict.append(zoom(src, path))
-
-    # # ORIGINAL IMAGE
-    # images_dict.append(original_image(src, path))
     
     return images_dict
+
+def diversify_images_rotation_and_position(imagePath):
+    
+    images_dict = []
+
+    path = session.get('files_path', None)
+    print("STATIC FILE PATH: ")
+    print(path)
+    print("IMAGE FILE PATH: ")
+    print(imagePath)
+    
+
+    src = cv2.imread(imagePath) # as numpy
+
+    cropped_im = crop_image(src, path) #TODO
+
+
+
+    images_dict_pos = insert_crop(cropped_im, path) # returns an image array as json string, of original object cropped and pasted to different new positions
+    images_dict_rot = rotate_image(cropped_im, path) # returns an image array as json string, of original object cropped and pasted to different new positions
+    images_dict_temp = images_dict_pos + images_dict_rot
+    images_dict = random.sample(images_dict_temp, k=len(images_dict_temp))
+
+    images_dict.insert(0, original_image(src, path))
+
+    print(len(images_dict))
+    
+    return images_dict
+
     
 def crop_image(src, path):
     print(src.shape)
@@ -1225,10 +1235,18 @@ def testFetch():
             responseMessage = images
 
         elif calc_type == "rotations":
-            print("CALCULATING POSITIONS")
+            print("CALCULATING ROTATIONS")
             images = diversify_images_rotation(imagePath)
 
             responseType = "diversified_images_rotation"
+            responseMessage = images
+
+        elif calc_type == "positions_and_rotations":
+            print("CALCULATING POSITIONS AND ROTATIONS")
+
+            images = diversify_images_rotation_and_position(imagePath)
+
+            responseType = "diversified_images_positions_and_rotations"
             responseMessage = images
         
         elif calc_type == "zoom":
@@ -1309,6 +1327,12 @@ def testFetch():
 
             responseMessage = {"custom_detection_name":name, "custom_detection_confidence":confidence, "x":x, "y":y,"x_old":session.get('og_x'), "y_old":session.get('og_y'), "userInput":object_label, "language":language, "firstDet":"testing", "rectangle":[y1,x1,y2,x2]} 
             responseType = "sven_model_test"
+
+    elif requestType == "launch":
+        testdetect()
+        detectRoundTwo()
+        responseType = "launch_ready"
+        responseMessage = "launching app"
 
 
     msgRETURN = {"responseType":responseType, "responseMsg":responseMessage}
@@ -1524,21 +1548,24 @@ def get_session_data():
     user_id = session.get('userID', None)
     true_detection = session.get('og_det', None)
     user_input = session.get('user_label', None)
+    consentanswer = session.get('consent', None)
     q1_answer = session.get('q1', None)
     q2_answer = session.get('q2', None)
     q3_answer = session.get('q3', None)
     q4_answer = session.get('q4', None)
+    q5_answer = session.get('q5', None)
+    q6_answer = session.get('q6', None)
     interaction_type = session.get('interaction_type', None)
     interaction_duration = session.get('duration', None)
     interaction_completed = session.get('interaction_completed', None)
 
-    return [user_id, true_detection, user_input, q1_answer, q2_answer,q3_answer, q4_answer, interaction_type, interaction_duration, interaction_completed]
+    return [user_id, true_detection, user_input, consentanswer, q1_answer, q2_answer,q3_answer, q4_answer, q5_answer, q6_answer, interaction_type, interaction_duration, interaction_completed]
 
 
 #_______________________________________________________________
 # PATH TO CSV FILE
 #
-header = ['userID', 'true detection', 'user input', 'answer Q1', 'answer Q2', 'interaction type', 'interaction duration (min)', 'interaction completed']
+header = ['userID', 'true detection', 'user input', 'consent', 'answer Q1', 'answer Q2', 'answer Q3', 'answer Q4', 'answer Q5', 'answer Q6', 'interaction type', 'interaction duration (min)', 'interaction completed']
 
 with open(csvFile, 'w') as f:
     writer = csv.writer(f)

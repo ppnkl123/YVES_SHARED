@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block page_name %}Introduction to the interaction
+{% endblock %}
+
+{% block page_block1 %}
+<img class="explanationImage" src="../static/explanation_sharkRotation.png"/>
+{% endblock %}
+
+{% block page_block2 %}
+    <form action="{{ url_for('handle_forms') }}" method="post">
+        <p>
+            <input type="hidden" name="answer" value="25">
+        </p>
+        <p>
+            <button id="button" type="submit" class="btn btn-light nextButton" style="float: left;">
+            </button>
+        </p>
+    </form>
+{% endblock %}
+
+
+{% block script %}
+
+<script>
+
+let subheading = document.getElementById('description_text');
+subheading.style.width = "600px";
+let button = document.getElementById('button');
+
+let language = '{{ language }}';
+    console.log("LANGUAGE" + language);
+
+    var subcontent = "";
+    var buttonText = "";
+
+    switch (language){
+        case "en":
+            console.log("LANGUAGE IS ENGLISH HIHI");
+            subcontent = "I can help you again! Let’s do some more <span style='color:#FFD951'>Data Augmentation</span>.<br><br>I can use the picture you took in the beginning and create new images from it."
+            buttonText = "Next";
+            break; 
+        case "de":
+            console.log("LANGUAGE IS GERMAN HIHI");
+            headcontent = "Hey, ich bin YVES!"
+            subcontent = "blabliblu"
+            buttonText = "Weiter";
+            break;
+        case "rus":
+            console.log("LANGUAGE IS RUSSIAN HIHI");
+            headcontent = "russian"
+            subcontent = "russian"
+            buttonText = "russian";
+            break;
+        case "pol":
+            console.log("LANGUAGE IS POLISH HIHI");
+            headcontent = "polish"
+            subcontent = "Mogę ci znowu pomóc! Ponownie zróbmy <span style='color:#FFD951'>augmentację danych</span>.<br><br>Mogę wykorzystać wcześniej zrobione zdjęcie i stworzyć z niego nowe obrazy."
+            buttonText = "Następny";
+            break;
+    }
+
+    subheading.innerHTML = subcontent;
+    button.innerHTML = buttonText;
+
+</script>
+
+{% endblock %}

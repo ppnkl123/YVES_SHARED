@@ -9,10 +9,40 @@
     </p>
     <p>
         <button id="button" type="submit" class="btn btn-light">
-            <div>
-                <img style="height:56px; padding: 6px" src="../static/arrow.svg">
-            </div>
         </button>
     </p>
 </form>
+{% endblock %}
+{% block script %}
+
+<script>
+
+    let language = '{{ language }}';
+
+    console.log("LANGUAGE" + language);
+
+    var subheading = document.getElementById("subheading");
+    var button = document.getElementById("button");
+
+
+    subheadingString = "";
+    buttonString = "";
+
+    switch (language){
+        case "en":
+        console.log("LANGUAGE IS ENGLISH HIHI");
+        subheadingString = "Thank you very much! I hope you had fun";
+        buttonString = "Restart";
+        break; 
+        case "pol":
+        console.log("LANGUAGE IS POLISH");
+        subheadingString = "Dziękuję!!";
+        buttonString = "Powtarzać";
+        break;
+    }
+
+    subheading.innerHTML = subheadingString;
+    button.innerHTML = buttonString;
+
+</script>
 {% endblock %}

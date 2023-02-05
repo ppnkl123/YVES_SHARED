@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_start.html" %}
 {% block page_name %}Language{% endblock %}
 
 {% block page_block3 %}
@@ -11,14 +11,14 @@
                 <h5 class="card-title" style="text-align: center; font-family: 'Montserrat', sans-serif; font-weight: 500;">English</h5>
             </div>
     </div>        
-    <div class="card zoom" style="width: 160px;">
+    <div hidden class="card zoom" style="width: 160px;">
         <a class="card-block stretched-link text-decoration-none" id="german"></a> 
             <img src="../static/german-flag.png" class="card-img-top">
             <div class="card-body">
                 <h5 class="card-title" style="text-align: center;font-family: 'Montserrat', sans-serif; font-weight: 500;">Deutsch</h5>
             </div>
     </div>
-    <div class="card zoom" style="width: 160px;">
+    <div hidden class="card zoom" style="width: 160px;">
         <a class="card-block stretched-link text-decoration-none" id="russian"></a>
             <img src="../static/russian-flag.png" class="card-img-top">
             <div class="card-body">
@@ -46,7 +46,6 @@
 {% block script %}
 
 <script>
-//  submit post request language pick
 
 const card_en = document.getElementById('english');
 const card_de = document.getElementById('german');

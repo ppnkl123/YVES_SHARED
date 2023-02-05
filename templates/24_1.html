@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block page_name %}Introduction to the interaction
+{% endblock %}
+
+{% block page_block1 %}
+<img class="explanationImage" src="../static/explanation_sharkRotationFAIL.png"/>
+{% endblock %}
+
+{% block page_block2 %}
+    <form action="{{ url_for('handle_forms') }}" method="post">
+        <p>
+            <input type="hidden" name="answer" value="24_2">
+        </p>
+        <p>
+            <button id="button" type="submit" class="btn btn-light nextButton" style="float: left;">
+            </button>
+        </p>
+    </form>
+{% endblock %}
+
+
+{% block script %}
+
+<script>
+
+let subheading = document.getElementById('description_text');
+subheading.style.width = "600px";
+let button = document.getElementById('button');
+
+let language = '{{ language }}';
+    console.log("LANGUAGE" + language);
+
+    var subcontent = "";
+    var buttonText = "";
+
+    switch (language){
+        case "en":
+            console.log("LANGUAGE IS ENGLISH HIHI");
+            subcontent = "As you saw, I couldn’t recognise the object when you <span style='color:#FFD951'>rotated</span> it.<br><br>To recognise rotations, I need more images again.";
+            buttonText = "Next";
+            break; 
+        case "de":
+            console.log("LANGUAGE IS GERMAN HIHI");
+            headcontent = "Hey, ich bin YVES!"
+            subcontent = "blabliblu"
+            buttonText = "Weiter";
+            break;
+        case "rus":
+            console.log("LANGUAGE IS RUSSIAN HIHI");
+            headcontent = "russian"
+            subcontent = "russian"
+            buttonText = "russian";
+            break;
+        case "pol":
+            console.log("LANGUAGE IS POLISH HIHI");
+            headcontent = "polish"
+            subcontent = "Jak widzisz, nie mogę rozpoznać zabawki, gdy jest obrócona.<br><br>Aby rozpoznać obrócenie, potrzebuję znowu więcej obrazów."
+            buttonText = "Następny";
+            break;
+    }
+
+    subheading.innerHTML = subcontent;
+    button.innerHTML = buttonText;
+
+</script>
+
+{% endblock %}

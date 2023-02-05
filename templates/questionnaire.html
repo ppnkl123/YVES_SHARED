@@ -85,6 +85,22 @@
                 box-shadow: 0px 4px 4px rgb(0 0 0 / 95%);
             }
 
+            .languageButtonRow{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            margin-right: 40px;
+            }
+
+            .languageButton{
+                background: none;
+                border: none;
+            }
+
+            .languageImg{
+                height: 48px;
+            }
+
         </style>
 
     </head>
@@ -129,6 +145,71 @@
                 </div>
             </div>
             
+        </div>
+
+        <div class="languageButtonRow" id="bottom_language_buttons">
+            <div class="row card-deck">
+                <form action="{{ url_for('handle_forms') }}" method="post">
+                    <p>
+                        <input type="hidden" name="answer" value="restart">
+                    </p>
+                    <p>
+                        <button id="restart" type="submit" class="languageButton">
+                            <div>
+                                <img src="../static/polflag.png" class="languageImg">
+                            </div>
+                        </button>
+                    </p>
+                </form>
+                <form action="{{ url_for('handle_forms') }}" method="post">
+                    <p>
+                        <input type="hidden" name="answer" value="restart" >
+                    </p>
+                    <p>
+                        <button id="restart" type="submit" class="languageButton">
+                            <div>
+                                <img src="../static/ukflag.png" class="languageImg">
+                            </div>
+                        </button>
+                    </p>
+                </form>
+                <form action="{{ url_for('handle_forms') }}" method="post">
+                    <p>
+                        <input type="hidden" name="answer" value="restart">
+                    </p>
+                    <p>
+                        <button id="restart" type="submit" class="languageButton">
+                            <div>
+                                <img src="../static/russflag.png" class="languageImg" style="display: none;">
+                            </div>
+                        </button>
+                    </p>
+                </form>
+                <form action="{{ url_for('handle_forms') }}" method="post">
+                    <p>
+                        <input type="hidden" name="answer" value="restart">
+                    </p>
+                    <p>
+                        <button id="restart" type="submit" class="languageButton" style="display: none;">
+                            <div>
+                                <img src="../static/gerflag.png" class="languageImg">
+                            </div>
+                        </button>
+                    </p>
+                </form>
+                <form action="{{ url_for('handle_forms') }}" method="post">
+                    <p>
+                        <input type="hidden" name="answer" value="restart">
+                    </p>
+                    <p>
+                        <button id="restart" type="submit" class="languageButton">
+                            <div>
+                                <img src="../static/restart.png" class="languageImg">
+                            </div>
+                        </button>
+                    </p>
+                </form>
+            </div>
         </div>
         
         {% block script %}

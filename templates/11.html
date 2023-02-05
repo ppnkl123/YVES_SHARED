@@ -9,7 +9,7 @@
 </div>
 {% endblock %}
 
-{% block page_block2 %}
+{% block page_block3 %}
 <div>
     <canvas hidden id="hiddenCanvas" width="450px" height="450px"></canvas>
     <canvas class="canvasWithKeyboard" id="canvasWithKeyboard" width="450px" height="450px" style="display: none; position: relative;"></canvas>
@@ -64,9 +64,9 @@
 
 {% block other %}
 
-<button id="takeImage" class="btn btn-light nextButton"></button>
+<button id="takeImage" class="btn btn-light nextButton" style="margin-top: 32px;"></button>
 
-<div id="submitForm" style="display: none; justify-content: center; margin-top: 20px; margin-right: 80px;">
+<div id="submitForm" style="display: none; justify-content: center; margin-top: 32px; margin-right: 230px;">
     <form action="{{ url_for('handle_form') }}" method="post">
         <!-- <input autocomplete="false" type="text" name="form_label" style="height: 40px;"> -->
         <textarea id="textareaInput" rows="1" cols="20" maxlength="20" type="text" name="form_label" style="height: 72px;"></textarea>
@@ -248,7 +248,7 @@ let language = '{{ language }}';
     switch (language){
         case "en":
         console.log("LANGUAGE IS ENGLISH HIHI");
-        subcontentString = "Put an object in the <span style='color:#FFD951'>yellow</span> frame <br> and take a picture."
+        subcontentString = "Put a toy in the <span style='color:#FFD951'>yellow</span> frame <br> and take a picture."
         subcontentString2 = "I can’t know on my own what this is called. <br> That is why you need to give it a name. <br> In machine learning, this is called <span style='color: #FFD951;'>labeling</span>."
         labelObjectButtonString = "Next";
         takeImageButtonString = "Take Image";
@@ -269,10 +269,10 @@ let language = '{{ language }}';
         break;
         case "pol":
         console.log("LANGUAGE IS POLISH HIHI");
-        subcontentString = "polish"
-        subcontentString2 = "I can’t know on my own what this is called. <br> That is why you need to give it a name. <br> In machine learning, this is called <span style='color: #FFD951;'>labeling</span>."
-        labelObjectButtonString = "pol"
-        takeImageButtonString = "pol";
+        subcontentString = "Połóż zabawke w <span style='color: #FFD951;'>żółtej</span> ramce i zrób zdjęcie."
+        subcontentString2 = "Nie wiem jak to się nazywa.<br>Dlatego poproszę Ciebie o nadanie nazwy<br>temu przedmiotowi. W uczeniu maszynowym ten proces<br>nazywamy <span style='color: #FFD951;'>etykietowaniem</span> (ang. labeling)."        
+        labelObjectButtonString = "Następny"
+        takeImageButtonString = "Zrób zdjęcie";
         break;
     }
     
