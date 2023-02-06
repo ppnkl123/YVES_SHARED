@@ -91,10 +91,11 @@ def sven_model_detect():
 
 
 
-def testdetect(): 
-    #ret, frame = cap.read()
-    img = cv2.imread(os.path.join('processed', 'temp_img.jpg'))
-    image_np = np.array(img)
+def getDetection(image_np):
+    if (type(image_np) == type(None)):
+        img = cv2.imread(os.path.join('processed', 'temp_img.jpg'))
+        image_np = np.array(img)
+
     print("")
     print("IMAGE SHAPE: ", image_np.shape)
     print("")
@@ -677,27 +678,27 @@ def crop_image(src, path):
     return(cropped)
 
 
-def crop_detected_object(src, path):
-    detection = testdetect()
-    y1 = detection[2]
-    x1 = detection[3]
-    y2 = detection[4]
-    x2 = detection[5]
-    print("")
-    print("coordinates of the image")
-    print("")
-    print(y1, x1, y2, x2)
-    print("")
+# def crop_detected_object(src, path):
+#     detection = getDetection("IMG")
+#     y1 = detection[2]
+#     x1 = detection[3]
+#     y2 = detection[4]
+#     x2 = detection[5]
+#     print("")
+#     print("coordinates of the image")
+#     print("")
+#     print(y1, x1, y2, x2)
+#     print("")
 
-    #92 105 399 304
+#     #92 105 399 304
 
-    cropped_im = src[y1:y2, x1:x2]
-    print("SOURCE IMAGE: ", src.shape)
-    print("CROPPED IMAGE: ", cropped_im.shape)
-    croppedFile = "cropped_deprecated.jpg"
-    newImagePath = os.path.join(path, croppedFile)
-    cv2.imwrite(newImagePath, cropped_im)
-    return (cropped_im)
+#     cropped_im = src[y1:y2, x1:x2]
+#     print("SOURCE IMAGE: ", src.shape)
+#     print("CROPPED IMAGE: ", cropped_im.shape)
+#     croppedFile = "cropped_deprecated.jpg"
+#     newImagePath = os.path.join(path, croppedFile)
+#     cv2.imwrite(newImagePath, cropped_im)
+#     return (cropped_im)
 
 def insert_crop(cropped_im, path):
 
@@ -1081,7 +1082,7 @@ def testFetch():
             image_np = image64_to_numpy(image) # get numpy array representation of image 
             save_image(image_np, "temp_img.jpg")
 
-            detection = testdetect()
+            detection = getDetection(image_np)
             print("  ")
             print("GIMME GIMME GIMME A RESULT: ", detection)
             print("  ")
@@ -1110,9 +1111,10 @@ def testFetch():
             object_label = session.get('user_label', None)
             language = session.get('language', None)
 
+            # Sven: This seems to be odd. It's the same image, why should the detection be different?
             firstDet = session.get('og_det')
             if (firstDet == None):
-                detectionNew = testdetect()
+                detectionNew = getDetection(image_np)
                 firstDet = detectionNew[0]
                 save_to_session('og_det', firstDet)
 
