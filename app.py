@@ -2,35 +2,31 @@ from flask import Flask, session, request, redirect, url_for, Response, json, re
 import os, base64, cv2, random, string, csv, calendar, time
 import numpy as np
 from datetime import datetime
-
-
-app = Flask(__name__)
+from pathlib import Path
 
 ##############################################################
 ##############################################################
 # FIRST MODEL
-
-import cv2, os
-import numpy as np
 import tensorflow as tf
 from Test import detect_fn
 from DetectModelTwo import detect_fn_roundTwo
-
 from DetectNewModel import detect_fn_new
 
+Path("./questionnaire/").mkdir(parents=True, exist_ok=True)
+Path("./processed/").mkdir(parents=True, exist_ok=True)
 
-cap = cv2.VideoCapture(0)
-width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+path = os.path.join(os.getcwd(), "questionnaire")
+nr = random.randint(0, 9999)
+csvFile = os.path.join(path, "questionnaire" + str(nr) + ".csv")
+
+app = Flask(__name__)
 
 category_index = [{'name':'car', 'id':1}, {'name':'minion', 'id':2}, {'name':'rack', 'id':3}, {'name':'mixer', 'id':4}, {'name':'sandwich', 'id':5}]
 
 category_index_sven_model = [{'name':'car', 'id':1}, {'name':'lion', 'id':2}, {'name':'elephant', 'id':3}]
 
-
 def sven_model_detect():
-    #ret, frame = cap.read()
-    img = cv2.imread(os.path.join('static', 'temp_img.jpg'))
+    img = cv2.imread(os.path.join('processed', 'temp_img.jpg'))
     image_np = np.array(img)
 
     input_tensor = tf.convert_to_tensor(np.expand_dims(image_np, 0), dtype=tf.float32)
@@ -97,7 +93,7 @@ def sven_model_detect():
 
 def testdetect(): 
     #ret, frame = cap.read()
-    img = cv2.imread(os.path.join('static', 'temp_img.jpg'))
+    img = cv2.imread(os.path.join('processed', 'temp_img.jpg'))
     image_np = np.array(img)
     print("")
     print("IMAGE SHAPE: ", image_np.shape)
@@ -163,7 +159,7 @@ def testdetect():
 
 def detectRoundTwo():
     #ret, frame = cap.read()
-    img = cv2.imread(os.path.join('static', 'temp_img.jpg'))
+    img = cv2.imread(os.path.join('processed', 'temp_img.jpg'))
     image_np = np.array(img)
     print("")
     print("IMAGE SHAPE: ", image_np.shape)
@@ -252,7 +248,7 @@ def customDetection():
 
     model_type = session.get('custom_model_type', None)
 
-    image_path='static/temp_img.jpg'
+    image_path='processed/temp_img.jpg'
     img = cv2.imread(image_path)
     img = cv2.resize(img,(320,320))
 
@@ -487,12 +483,6 @@ def restart():
     session.pop('og_y', None)
     
     return render_template("home.html")
-
-
-path = os.path.join(os.getcwd(), "questionnaire")
-nr = random.randint(0, 9999)
-csvFile = os.path.join(path, "questionnaire" + str(nr) + ".csv")
-
 
 #_______________________________________________________________
 # HOME PAGE - CHOSE A LANGUAGE
@@ -1343,7 +1333,7 @@ def testFetch():
 # OTHER METHODS
 #
 def create_image_path(fileName):
-    path = os.path.join(os.getcwd(), "static")
+    path = os.path.join(os.getcwd(), "processed")
     imagePath = os.path.join(path, fileName)
     return imagePath
 #_______________________________________________________________
@@ -1352,7 +1342,7 @@ def create_image_path(fileName):
 def save_image(data, fileName):
     print("SAVE IMAGE")
                                   # CREATE PATHS FOR IMAGE
-    path = os.path.join(os.getcwd(), "static")
+    path = os.path.join(os.getcwd(), "processed")
     session["files_path"] = path
     print("PATH TO IMAGE: " + path)
     imagePath = os.path.join(path, fileName)
@@ -1383,7 +1373,7 @@ def detect_old(path):
 def image64_to_numpy(data):
         fileName = "temp_img.jpg"
 
-        path = os.path.join(os.getcwd(), "static")
+        path = os.path.join(os.getcwd(), "processed")
         imagePath = os.path.join(path, fileName)
         session['image_01_path'] = imagePath
 
@@ -1567,7 +1557,7 @@ def get_session_data():
 #
 header = ['userID', 'true detection', 'user input', 'consent', 'answer Q1', 'answer Q2', 'answer Q3', 'answer Q4', 'answer Q5', 'answer Q6', 'interaction type', 'interaction duration (min)', 'interaction completed']
 
-with open(csvFile, 'w') as f:
+with open(csvFile, 'w+') as f:
     writer = csv.writer(f)
     writer.writerow(header)
 

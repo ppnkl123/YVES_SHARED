@@ -1,4 +1,9 @@
-import os 
+import os
+import tensorflow as tf
+print("tensorflow", tf.__version__)
+from object_detection.utils import label_map_util
+from object_detection.builders import model_builder
+from object_detection.utils import config_util
 
 CUSTOM_MODEL_NAME = 'my_ssd_mobnet_3p3'
 PRETRAINED_MODEL_NAME = 'ssd_mobilenet_v2_fpnlite_320x320_coco17_tpu-8'
@@ -24,11 +29,6 @@ with open(files['LABELMAP'], 'w') as f:
         f.write('\tid:{}\n'.format(label['id']))
         f.write('}\n')
 
-import os
-import tensorflow as tf
-from object_detection.utils import label_map_util
-from object_detection.builders import model_builder
-from object_detection.utils import config_util
 
 # Load pipeline config and build a detection model
 configs = config_util.get_configs_from_pipeline_file(files['PIPELINE_CONFIG'])
